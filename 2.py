@@ -19,11 +19,33 @@ class BinaryTree:
         else:
             return self.size(Node.getFilsGauche()) +1 + self.size(Node.getFilsDroit())
 
-    def printValues(self, node):
-        if node is None:
+    def printValues(self, Node):
+        if Node is None:
             return ""
         else:
-            return self.printValues(node.getLeft()) + self.printValues(node.getRight()) + " " + str(node.getVal())
+            return str(self.printValues(Node.getFilsGauche())) + str(self.printValues(Node.getFilsDroit())) + " " + str(Node.getValeur())
+
+
+    def SumValues(self,node):
+        if node is None:
+            return 0
+        else:
+            return self.SumValues(node.getFilsGauche()) + self.SumValues(node.getFilsDroit()) + node.getValeur()
+
+    def numberLeaves(self, node):
+        if node is None:
+            return 0
+        elif node.getFilsGauche() == None and node.getFilsDroit() == None:
+            return 1
+        else:
+            return self.numberLeaves(node.getFilsGauche()) + self.numberLeaves(node.getFilsDroit())
+
+    def numberInternalNodes(self, node):
+        if node is None or (node.getFilsGauche() == None and node.getFilsDroit() == None):
+            return 0
+        else:
+            return self.numberLeaves(node.getFilsGauche()) + self.numberLeaves(node.getFilsDroit()) +1
+
 
 
 
@@ -38,4 +60,9 @@ arbre.getRoot().getFilsDroit().setFilsDroit(Node(19,None,None))
 arbre.getRoot().getFilsDroit().getFilsDroit().setFilsGauche(Node(18,None,None))
 arbre.getRoot().getFilsDroit().getFilsDroit().setFilsDroit(Node(21,None,None))
 
+#print(arbre.size(arbre.getRoot()))
 print(arbre.size(arbre.getRoot()))
+print(arbre.printValues(arbre.getRoot()))
+print(arbre.SumValues(arbre.getRoot()))
+print(arbre.numberLeaves(arbre.getRoot()))
+print(f'noeuds internes',arbre.numberInternalNodes(arbre.getRoot()))
